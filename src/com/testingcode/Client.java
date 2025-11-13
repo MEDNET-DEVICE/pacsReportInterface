@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private static final String SERVER_HOST = "172.16.1.28";  // ✅ Your server's local IP
+    private static final String SERVER_HOST = "localhost";  // ✅ Your server's local IP
     private static final int SERVER_PORT = 7878;  // ✅ Same port as the server
 
     public static void main(String[] args) {

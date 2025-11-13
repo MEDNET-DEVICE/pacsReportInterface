@@ -1,6 +1,8 @@
 package com.reader;
 
 import com.connector.LabConnectorService;
+
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 
 import javax.ws.rs.ClientErrorException;
@@ -71,64 +73,8 @@ public class PacsServerReading {
         }
     }
 
-//    public void startReading(String webServiceUrl) throws Exception {
-//        log("Ready to start reading the data ............");
-//
-//        try {
-//            InputStream is = socket.getInputStream();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-//
-//            String ack = "";
-//            String msg;
-//
-//            // Continuously listen for data
-//            while ((msg = br.readLine()) != null) {
-//                ack += msg;
-//                if (ack.contains("\u001c")) {
-//                    log("Message received from PACS: " + ack);
-//                    webServiceCall(ack, webServiceUrl);
-//                    ack = "";
-//                }
-//            }
-//        } catch (IOException e) {
-//            log("Connection lost. Restarting service");
-//            LabConnectorService.startService();
-//        }
-//    }
-
-//    public void startReading(String webServiceUrl) throws Exception {
-//        log("Ready to start reading the data ............");
-//
-//        String host = "172.16.1.28";
-//        int port = 7878;
-//
-//        try (Socket socket = new Socket(host, port);
-//             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-//
-//            log("Connected to server: " + host + ":" + port);
-//
-//            StringBuilder ack = new StringBuilder();
-//            String msg;
-//
-//            while ((msg = br.readLine()) != null) {
-//                ack.append(msg);
-//                if (ack.toString().contains("\u001c")) {
-//                    log("Message received from PACS: " + ack);
-//                    webServiceCall(ack.toString(), webServiceUrl);
-//                    ack.setLength(0);  // Clear the buffer
-//                }
-//            }
-//        } catch (IOException e) {
-//            log("Connection lost. Restarting service");
-//            LabConnectorService.startService();
-//        }
-//    }
-
-    public void startReading(String webServiceUrl) {
-        log("Ready to start reading the data ............");
-
-        String host = "172.16.1.28";
-        int port = 7878;
+    public void startReading(String webServiceUrl, String host, int port) {
+        log("Ready to start reading the data ............host: " + host + ", port: " + port);
 
         while (true) {
             try (Socket socket = new Socket(host, port)) {
@@ -142,11 +88,21 @@ public class PacsServerReading {
                     ack.append((char) character);
                     if (character == '\u001c') {  // If end character is found
                         log("Message received from PACS: " + ack.toString().trim());
-//                        webServiceCall(ack.toString(), webServiceUrl);
+
+                        String response = webServiceCall(ack.toString(), webServiceUrl);
+                        
+                        log("Response from web service: " + response);
+                        if (!StringUtils.isEmpty(response) && response.contains("ACK")) {
+                            log("ACK received from web service :"+response);
+                        } else if (!StringUtils.isEmpty(response) && response.contains("NACK")) {
+                            log("NACK received from web service :"+response);
+                        } else {
+                            log("Unknown response from web service :"+response);
+                        }
                         ack.setLength(0); // Reset buffer for next message
                     }
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log("Connection lost. Retrying...");
                 try {
                     Thread.sleep(5000); // Wait before retrying

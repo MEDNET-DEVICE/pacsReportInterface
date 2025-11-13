@@ -69,7 +69,7 @@ public class LabConnectorService {
 
                 PacsServerReading reader = new PacsServerReading(socket);
 
-                reader.startReading(webServiceUrl); // Started reading data
+                reader.startReading(webServiceUrl, host, port); // Started reading data
 
                 return;
 

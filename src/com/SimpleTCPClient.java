@@ -5,7 +5,7 @@ import java.net.*;
 
 public class SimpleTCPClient {
     public static void main(String[] args) {
-        String host = "172.16.1.28";  // Server IP
+        String host = "localhost";  // Server IP
         int port = 7878;  // Server Port
 
         try (Socket socket = new Socket(host, port);

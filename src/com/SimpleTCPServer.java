@@ -6,7 +6,7 @@ import java.net.*;
 
 public class SimpleTCPServer {
     public static void main(String[] args) throws IOException {
-        String host = "172.16.1.28";
+        String host = "localhost";
         int port = 7878;
 
         ServerSocket serverSocket = new ServerSocket();

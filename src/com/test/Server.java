@@ -1,6 +1,6 @@
-package com.testingcode;
+package com.test;
 
-import com.reader.LabConnectUtil;
+//import com.reader.LabConnectUtil;
 import org.apache.cxf.jaxrs.client.WebClient;
 
 import javax.ws.rs.ClientErrorException;
@@ -91,7 +91,7 @@ public class Server {
         headerParamMap.put("Content-Type", "text/plain");
 
         WebClient resultClient = WebClient.create(webServiceUrl);
-        WebClient.getConfig(resultClient).getHttpConduit().getClient().setReceiveTimeout(15000);
+        //WebClient.getConfig(resultClient).getHttpConduit().getClient().setReceiveTimeout(15000);
 
         resultClient.type(MediaType.TEXT_PLAIN);
         resultClient.accept(MediaType.TEXT_PLAIN);
@@ -137,6 +137,6 @@ public class Server {
     }
 
     public static void log(String message) {
-        LabConnectUtil.log(message);
+        //LabConnectUtil.log(message);
     }
 }

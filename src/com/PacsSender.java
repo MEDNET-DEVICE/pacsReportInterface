@@ -6,8 +6,8 @@ import java.net.Socket;
 
 public class PacsSender {
     public static void main(String[] args) throws Exception {
-        String host = "localhost";
-        int port = 9090;
+        String host = "192.168.2.81";
+        int port = 7070;
 
         // Establish connection to PACS Server
         Socket socket = new Socket(host, port);
