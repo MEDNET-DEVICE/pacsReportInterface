@@ -1,4 +1,4 @@
-package com.peerless;
+package com.nairobi;
 
 import com.reader.LabConnectUtil;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -14,6 +14,11 @@ import java.util.*;
 
 public class Server {
     public static void main(String[] args) throws Exception {
+        Server server = new Server();
+        server.startServer();
+    }
+
+    public void startServer() throws Exception {
 
         String rootDrive = "/D:";
         String folderSuffix = "PACS_CONNECTOR";

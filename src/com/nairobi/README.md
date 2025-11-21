@@ -1,7 +1,7 @@
 # Peerless PACS Connector
 
 ## Overview
-`com.peerless.Server` is a standalone socket listener that accepts HL7 ORU/ORC report payloads from the Peerless modality bridge and forwards them to the MedNet Lab web service. The class lives in `src/com/peerless/Server.java` and is configured through the colocated `pacs-connector.properties`.
+`com.nairobi.Server` is a standalone socket listener that accepts HL7 ORU/ORC report payloads from the Peerless modality bridge and forwards them to the MedNet Lab web service. The class lives in `src/com/peerless/Server.java` and is configured through the colocated `pacs-connector.properties`.
 
 ## Runtime Flow
 1. Load configuration from `/D:/PACS_CONNECTOR/pacs-connector.properties` (see the template checked into this folder).
@@ -27,7 +27,7 @@
 - Provide automated tests that feed sample HL7 payloads (with and without explicit `\r`) through `addSegmentSeparators(..)` to guard against regressions.
 
 ## Quick Test Checklist
-- Start the server (`java com.peerless.Server`) after copying `pacs-connector.properties` to `D:/PACS_CONNECTOR/`.
+- Start the server (`java com.nairobi.Server`) after copying `pacs-connector.properties` to `D:/PACS_CONNECTOR/`.
 - Use `netcat` or `SimpleTCPClient` to send an HL7 message terminated with `0x1C0D`. Confirm the server logs the normalized payload and that the modality receives an ACK containing the message control ID returned by MedNet.
 
 
